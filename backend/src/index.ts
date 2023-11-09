@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import exp from 'constants';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import * as RecipeAPI from './recipe-api';
 
 const app = express();
 
@@ -8,7 +11,10 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/api/recipes/search', async (req, res) => {
-  res.json({ message: "Success" });
+  const searchTerm = req.query.searchTerm as string;
+  const page = parseInt(req.query.page as string) || 1;
+  const results = await RecipeAPI.searchRecipes(searchTerm, page);
+  return res.json(results);
 });
 
 app.listen(5000, () => {
