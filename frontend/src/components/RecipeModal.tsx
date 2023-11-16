@@ -23,7 +23,7 @@ const RecipeModal = ({recipeId, onClose}: Props) => {
   if(!recipeSummary) return <></>;
   return (
     <>
-      <div className='overlay'></div>
+      <div className='overlay' onClick={onClose}></div>
       <div className='modal'>
         <div className='modal-header'>
           <h2>{recipeSummary.title}</h2>
