@@ -51,6 +51,15 @@ const App = () => {
     }
   }
 
+  const handleAddToFavourites = async (recipe: Recipe) => {
+    try {
+      await api.addFavouriteRecipe(recipe);
+      setFavouriteRecipes([...favouriteRecipes, recipe]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div>
       <div className="tabs">
@@ -68,7 +77,7 @@ const App = () => {
           <button type="submit">Search</button>
         </form>
         {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} />
+          <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={handleAddToFavourites}/>
         ))}
         <button className='load-more' onClick={handleViewMore}>Load More</button>
         </>
@@ -76,7 +85,7 @@ const App = () => {
       {selectedTab === 'favourites' && (
         <div>
           {favouriteRecipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} />
+            <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={handleAddToFavourites}/>
           ))}
         </div>
       )}

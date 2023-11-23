@@ -44,3 +44,9 @@
   gap: 2rem;
   cursor: pointer;
 }
+
+.recipe-card__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
