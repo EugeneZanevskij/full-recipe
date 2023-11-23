@@ -53,3 +53,20 @@ export const addFavouriteRecipe = async (recipe: Recipe) => {
     throw new Error('Failed to add favourite recipe');
   }
 }
+
+export const removeFavouriteRecipe = async (recipe: Recipe) => {
+  const baseUrl = new URL('http://localhost:5000/api/recipes/favourite');
+  const body = {
+    recipeId: recipe.id
+  }
+  const response = await fetch(baseUrl, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!response.ok) {
+    throw new Error('Failed to remove favourite recipe');
+  }
+}

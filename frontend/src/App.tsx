@@ -51,10 +51,19 @@ const App = () => {
     }
   }
 
-  const handleAddToFavourites = async (recipe: Recipe) => {
+  const addFavouriteRecipe = async (recipe: Recipe) => {
     try {
       await api.addFavouriteRecipe(recipe);
       setFavouriteRecipes([...favouriteRecipes, recipe]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const removeFavouriteRecipe = async (recipe: Recipe) => {
+    try {
+      await api.removeFavouriteRecipe(recipe);
+      setFavouriteRecipes(favouriteRecipes.filter((favouriteRecipe) => favouriteRecipe.id !== recipe.id));
     } catch (error) {
       console.error(error);
     }
@@ -76,16 +85,20 @@ const App = () => {
             placeholder='Search'/>
           <button type="submit">Search</button>
         </form>
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={handleAddToFavourites}/>
-        ))}
+        {recipes.map((recipe) => {
+          const isFavourite = favouriteRecipes.some((favouriteRecipe) => recipe.id === favouriteRecipe.id);
+          return (
+            <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={isFavourite ? removeFavouriteRecipe : addFavouriteRecipe} isFavourite={isFavourite}/>
+          );
+        }
+        )}
         <button className='load-more' onClick={handleViewMore}>Load More</button>
         </>
       )}
       {selectedTab === 'favourites' && (
         <div>
           {favouriteRecipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={handleAddToFavourites}/>
+            <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={removeFavouriteRecipe} isFavourite={true}/>
           ))}
         </div>
       )}
