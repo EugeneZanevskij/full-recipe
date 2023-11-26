@@ -1,5 +1,6 @@
 import {useRef, useState, useEffect} from 'react';
 import "./App.css";
+import foodImage from './assets/foodImage.jpg';
 import * as api from "./api";
 import { Recipe } from './types';
 import RecipeCard from './components/RecipeCard';
@@ -70,20 +71,25 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="app">
+      <header className="header">
+        <img className="header__image" src={foodImage} alt="logo"/>
+        <h1 className="header__title">Recipe app</h1>
+      </header>
       <div className="tabs">
-        <h1 onClick={()=> setSelectedTab("search")}>Recipe Search</h1>
-        <h1 onClick={()=> setSelectedTab("favourites")}>Favourites</h1>
+        <h1 className={selectedTab === 'search' ? 'tab--active' : ''} onClick={()=> setSelectedTab("search")}>Recipe Search</h1>
+        <h1 className={selectedTab === 'favourites' ? 'tab--active' : ''} onClick={()=> setSelectedTab("favourites")}>Favourites</h1>
       </div>
       {selectedTab === 'search' && (
         <>
-        <form onSubmit={(e) => handleSearchSubmit(e)}>
+        <form className="search-form" onSubmit={(e) => handleSearchSubmit(e)}>
           <input 
+            className="search-input"
             type="text" 
             value={searchTerm} 
             onChange={(e) => setSearchTerm(e.target.value)} 
             placeholder='Search'/>
-          <button type="submit">Search</button>
+          <button className="search-btn" type="submit">Search</button>
         </form>
         {recipes.map((recipe) => {
           const isFavourite = favouriteRecipes.some((favouriteRecipe) => recipe.id === favouriteRecipe.id);
