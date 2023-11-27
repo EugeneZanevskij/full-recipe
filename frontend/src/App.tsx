@@ -91,18 +91,20 @@ const App = () => {
             placeholder='Search'/>
           <button className="search-btn" type="submit">Search</button>
         </form>
-        {recipes.map((recipe) => {
-          const isFavourite = favouriteRecipes.some((favouriteRecipe) => recipe.id === favouriteRecipe.id);
-          return (
-            <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={isFavourite ? removeFavouriteRecipe : addFavouriteRecipe} isFavourite={isFavourite}/>
-          );
-        }
+        <div className="recipe-grid">
+          {recipes.map((recipe) => {
+            const isFavourite = favouriteRecipes.some((favouriteRecipe) => recipe.id === favouriteRecipe.id);
+            return (
+              <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={isFavourite ? removeFavouriteRecipe : addFavouriteRecipe} isFavourite={isFavourite}/>
+            );
+          }
         )}
+        </div>
         <button className='load-more' onClick={handleViewMore}>Load More</button>
         </>
       )}
       {selectedTab === 'favourites' && (
-        <div>
+        <div className="recipe-grid">
           {favouriteRecipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)} onFavourite={removeFavouriteRecipe} isFavourite={true}/>
           ))}

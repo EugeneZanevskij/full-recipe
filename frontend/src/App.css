@@ -121,10 +121,49 @@ body {
   background-color: #0056b3;
 }
 
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #fff;
+  gap: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+  max-width: 20rem;
+}
+
+.recipe-card img {
+  height: 15rem;
+  object-fit: cover;
+  object-position: center;
+}
+
 .recipe-card__title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.recipe-card__title h2 {
+  font-size: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.load-more {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 50rem) {
